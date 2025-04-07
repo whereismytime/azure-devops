@@ -13,11 +13,25 @@ steps:
     displayName: '👋 Greeting step'
 
   - script: |
-      echo 🔧 Building project...
-      dotnet build Laba01.sln --configuration Release
-    displayName: '🔨 Build .NET project'
+      echo 🔎 Searching for .sln or .csproj...
+      setlocal enabledelayedexpansion
+      set "targetFile="
+      for %%f in (*.sln) do (
+        set "targetFile=%%f"
+        goto :found
+      )
+      for /r %%f in (*.csproj) do (
+        set "targetFile=%%f"
+        goto :found
+      )
+      echo ❌ No .sln or .csproj file found!
+      exit /b 1
+      :found
+      echo ✅ Found: !targetFile!
+      dotnet build "!targetFile!" --configuration Release
+    displayName: '🔨 Auto-detect & Build .NET project'
 
   - script: |
       echo 🧪 Running tests...
-      dotnet test Laba01.sln --no-build
+      dotnet test --no-build
     displayName: '✅ Run unit tests'

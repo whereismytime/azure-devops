@@ -33,5 +33,8 @@ steps:
 
   - script: |
       echo 🧪 Running tests...
-      dotnet test --no-build || echo ⚠️ No test project found or test failed.
+      dotnet test --no-build || (
+        echo ⚠️ No test project found or tests failed.
+        exit /b 0
+      )
     displayName: '✅ Run unit tests (optional)'

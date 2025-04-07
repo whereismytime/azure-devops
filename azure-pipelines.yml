@@ -1,26 +1,23 @@
-# ✅ Starter pipeline for Azure DevOps using Microsoft-hosted agent
-# Docs: https://aka.ms/yaml
+# Azure DevOps YAML pipeline using self-hosted agent from 'MyHostedPool'
 
 trigger:
-  - main  # 🔁 Pipeline будет запускаться при пуше в ветку main
+  - main  # 🔁 Запуск при пуше в ветку main
 
 pool:
-  vmImage: 'windows-latest'  # 🖥 Используется готовый агент от Microsoft
+  name: MyHostedPool    # 🏊‍♂️ Название пула агентов
+  demands:
+    - Agent.Name -equals ANDY  # 🎯 Явно указываем на агента ANDY
 
 steps:
-  - script: echo Hello, world!
-    displayName: 'Run a one-line script'
+  - script: echo Hello from ANDY agent!
+    displayName: '👋 Greeting step'
 
   - script: |
-      echo Running build steps...
-      dotnet build YourSolution.sln --configuration Release
-    displayName: 'Build .NET project'
+      echo 🔧 Building project...
+      dotnet build YourProject.sln --configuration Release
+    displayName: '🔨 Build .NET project'
 
   - script: |
-      echo Running tests...
-      dotnet test YourSolution.sln
-    displayName: 'Run unit tests'
-
-  - script: |
-      echo Deployment step (example)
-    displayName: 'Deployment (placeholder)'
+      echo 🧪 Running tests...
+      dotnet test YourProject.sln --no-build
+    displayName: '✅ Run unit tests'

@@ -14,10 +14,10 @@ steps:
 
   - script: |
       echo 🔧 Building project...
-      dotnet build YourProject.sln --configuration Release
+      dotnet build Laba01.sln --configuration Release
     displayName: '🔨 Build .NET project'
 
   - script: |
       echo 🧪 Running tests...
-      dotnet test YourProject.sln --no-build
+      dotnet test Laba01.sln --no-build
     displayName: '✅ Run unit tests'
